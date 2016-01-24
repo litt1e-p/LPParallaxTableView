@@ -1,2 +1,2 @@
 # LPParallaxTableView
-parallax effect for tableView while scroll the cell
+the parallax effect for tableView while scroll the cell
