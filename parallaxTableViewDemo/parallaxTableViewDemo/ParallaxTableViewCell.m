@@ -8,6 +8,12 @@
 
 #import "ParallaxTableViewCell.h"
 
+@interface ParallaxTableViewCell()
+
+//@property (nonatomic, strong) MenuView *menuView;
+
+@end
+
 @implementation ParallaxTableViewCell
 
 - (void)tableView:(UITableView *)tableView didScrollOnView:(UIView *)view
@@ -19,16 +25,25 @@
     
     CGRect imageRect = CGRectMake(self.parallaxImage.frame.origin.x, -(diff * 0.5) + move, self.parallaxImage.frame.size.width, self.parallaxImage.frame.size.height);
     self.parallaxImage.frame = imageRect;
+    self.menuView.frame = CGRectMake(0, 0, self.menuView.frame.size.width, self.menuView.frame.size.height);
 }
 
-- (void)awakeFromNib {
-    // Initialization code
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)awakeFromNib
+{
+    if (!self.menuView) {
+        
+        NSArray *titles = [@[@"menu1", @"menu2", @"menu3", @"menu4", @"menu5", @"menu6", @"menu7"] mutableCopy];
+        CGRect menuFrame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 160);
+        MenuView *menu = [MenuView menuViewWithTitleArr:titles andFrame:menuFrame];
+        [self.contentView addSubview:menu];
+        self.menuView = menu;
+    }
 }
 
 @end
